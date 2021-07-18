@@ -1,31 +1,24 @@
 # @aiou/webpack-loader-template
-> webpack loader starter
+*build webpack loader*
 
-[![npm](https://img.shields.io/npm/v/@aiou/webpack-loader-template?style=for-the-badge)](https://github.com/JiangWeixian/templates/tree/master/packages/core) [![GitHub](https://img.shields.io/github/license/jiangweixian/templates?style=for-the-badge)](https://github.com/JiangWeixian/templates/tree/master/packages/webpack-loader-template)
+[![npm](https://img.shields.io/npm/v/@aiou/webpack-loader-template)](https://github.com/JiangWeixian/templates/tree/master/packages/webpack-loader-template) [![GitHub](https://img.shields.io/npm/l/@aiou/webpack-loader-template)](https://github.com/JiangWeixian/templates/tree/master/packages/webpack-loader-template)
 
-## Note
+## install
 
-- replace all `webpack-loader-template` by real `{ webpack-loader-name }`
-
-## Features
-
-- [typescript]()
-- [example]() - config in `/examples/basic-react/build/webpack.common.config.js`
-
-## Dev
-
-**Setup**
-
-```
-npm install
-npm run dev
+```console
+yarn add @aiou/webpack-loader-template -D
 ```
 
-**Build**
+## features
 
-```
-npm run build
-```
+- Watch mode
+- Build with `tsc`
+- Replace `alias` path to `real` path
+
+## development
+
+- **Setup** - `yarn * yarn dev`
+- **Build** - `yarn build`
 
 ## Q&A
 
@@ -46,7 +39,4 @@ npm run build
 
 - how webpack-loader work
   
-  webpack output resouce-file in string-format to webpack-loader
-
-- some suggestions
-  - `tsc` is better than `rollup`
+  webpack output resource-file in string-format to webpack-loader

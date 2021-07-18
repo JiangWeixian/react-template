@@ -1,13 +1,11 @@
 {
   "name": "@aiou/nextjs-rematch2-template",
-  "version": "1.1.6",
+  "version": "1.1.8",
   "scripts": {
-    "dev": "next -p 3001",
+    "dev": "next -p 3001 & yarn run mock",
+    "test": "jest",
     "build": "next build",
     "start": "next start",
-    "type-check": "tsc",
-    "prettier": "pretty-quick --staged",
-    "release": "np --no-cleanup --yolo --no-publish --any-branch",
     "mock": "PORT=8080 umi-serve",
     "watch_mock": "npm-watch mock"
   },
@@ -23,36 +21,51 @@
   "dependencies": {
     "@rematch2/core": "^0.2.2",
     "axios": "0.21.1",
-    "isomorphic-unfetch": "3.0.0",
-    "next": "latest",
-    "react": "16.10.1",
-    "react-dom": "16.10.1",
-    "react-redux": "7.1.0",
+    "isomorphic-unfetch": "3.1.0",
+    "next": "^11.0.1",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-redux": "7.2.4",
     "redux": "4.1.0",
-    "styled-components": "5.1.0",
-    "styled-webgradients": "1.0.0-1"
+    "styled-components": "5.3.0",
+    "styled-webgradients": "1.0.0",
+    "ts-jest": "^27.0.3"
   },
   "devDependencies": {
-    "@types/node": "12.7.8",
-    "@types/react": "16.9.3",
-    "@types/react-dom": "16.9.1",
+    "@aiou/eslint-config": "^0.0.12",
+    "@babel/core": "^7.14.6",
+    "@babel/preset-react": "^7.14.5",
+    "@types/jest": "^26.0.24",
+    "@types/node": "16.3.2",
+    "@types/react": "17.0.14",
+    "@types/react-dom": "17.0.9",
     "@types/react-redux": "7.1.1",
-    "@types/styled-components": "5.0.1",
-    "cross-env": "6.0.3",
-    "cssnano": "4.1.10",
-    "cssnano-preset-advanced": "4.0.7",
+    "@types/react-test-renderer": "^17.0.1",
+    "@types/styled-components": "5.1.11",
+    "babel-jest": "^27.0.6",
+    "cross-env": "7.0.3",
+    "cssnano": "5.0.6",
+    "cssnano-preset-advanced": "5.1.3",
+    "cz-emoji": "^1.3.1",
+    "eslint": "^7.30.0",
     "husky": "3.1.0",
-    "next-images": "1.4.0",
-    "np": "5.2.1",
-    "npm-watch": "0.6.0",
+    "jest": "^27.0.6",
+    "jest-css-modules": "^2.1.0",
+    "jest-localstorage-mock": "^2.4.14",
+    "next-images": "1.8.1",
+    "np": "7.5.0",
+    "npm-watch": "0.10.0",
+    "postcss": "^8.3.5",
+    "postcss-import": "^14.0.2",
     "postcss-preset-env": "6.7.0",
-    "postcss-url": "8.0.0",
+    "postcss-url": "10.1.3",
     "postcss-write-svg": "3.0.1",
-    "prettier": "2.2.1",
-    "pretty-quick": "3.1.0",
+    "prettier": "2.3.2",
+    "pretty-quick": "3.1.1",
+    "react-test-renderer": "^17.0.2",
     "rucksack-css": "^1.0.2",
-    "typescript": "3.7.2",
-    "umi-serve": "1.9.3"
+    "typescript": "4.3.5",
+    "umi-serve": "1.9.10"
   },
   "license": "MIT",
   "husky": {
@@ -64,5 +77,21 @@
     "> 1%",
     "last 2 versions"
   ],
-  "gitHead": "8d1f23440ab011812cba747468cd2e4c5c36a9e4"
+  "config": {
+    "commitizen": {
+      "path": "cz-emoji"
+    }
+  },
+  "gitHead": "8d1f23440ab011812cba747468cd2e4c5c36a9e4",
+  "homepage": "https://github.com/JiangWeixian/templates#readme",
+  "bugs": {
+    "url": "https://github.com/JiangWeixian/templates/issues",
+    "email": "jiangweixian1994@gmail.com"
+  },
+  "author": "JW <jiangweixian1994@gmail.com> (https://twitter.com/jiangweixian)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JiangWeixian/templates",
+    "directory": "packages/nextjs-rematch2-template"
+  }
 }

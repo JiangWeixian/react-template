@@ -1,12 +1,10 @@
-// refs: https://github.com/vuejs/vue-cli/blob/v2/lib/logger.js
 import { format } from 'util'
 import chalk from 'chalk'
 
 /**
  * Prefix.
  */
-
-const prefix = '   neo'
+const prefix = ' neo '
 const sep = chalk.gray('·')
 
 /**
@@ -14,10 +12,9 @@ const sep = chalk.gray('·')
  *
  * @param {String} message
  */
-
 const log = (...args: [any, ...any[]]) => {
   const msg = format.apply(format, args)
-  console.log(chalk.white(prefix), sep, msg)
+  console.log(chalk.bgBlue.black(prefix), sep, msg)
 }
 
 /**
@@ -29,7 +26,7 @@ const log = (...args: [any, ...any[]]) => {
 const fatal = (...args: [any, ...any[]]) => {
   if (args[0] instanceof Error) args[0] = args[0].message.trim()
   const msg = format.apply(format, args)
-  console.error(chalk.red(prefix), sep, msg)
+  console.error(chalk.bgRed.black(prefix), sep, msg)
   process.exit(1)
 }
 
@@ -41,7 +38,7 @@ const fatal = (...args: [any, ...any[]]) => {
 
 const success = (...args: [any, ...any[]]) => {
   const msg = format.apply(format, args)
-  console.log(chalk.white(prefix), sep, msg)
+  console.log(chalk.bgGreen.black(prefix), sep, msg)
 }
 
 export default {

@@ -1,6 +1,5 @@
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
-const CopyWebpakcPlugin = require('copy-webpack-plugin')
-const ThreadLoader = require('thread-loader')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const configs = require('./config')
 
@@ -58,19 +57,23 @@ const common = {
     ],
   },
   plugins: [
-    new CopyWebpakcPlugin([
-      {
-        from: configs.path.static,
-        to: 'static',
-      },
-      {
-        from: configs.path.public,
-        to: '',
-      },
-    ]),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: configs.path.static,
+          to: 'static',
+        },
+        {
+          from: configs.path.public,
+          to: '',
+        },
+      ],
+    }),
     new ForkTsCheckerWebpackPlugin({
-      tsconfig: configs.path.tsconfig,
-      checkSyntacticErrors: true,
+      typescript: {
+        configFile: configs.path.tsconfig,
+      },
+      async: true,
     }),
   ],
 }

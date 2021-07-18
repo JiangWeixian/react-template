@@ -10,9 +10,13 @@
     "noUnusedLocals": true,
     "noImplicitAny": true,
     "target": "es6",
+    "skipLibCheck": true,
     "lib": ["dom", "es2017"],
     "resolveJsonModule": true,
-    "rootDir": "."
+    "baseUrl": "./",
+    "paths": {
+      "@shared/*": ["shared/*"]
+    }
   },
   "exclude": ["node_modules", "lib", "es"]
 }

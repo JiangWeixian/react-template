@@ -6,7 +6,7 @@
     "importHelpers": true,
     "esModuleInterop": true,
     "declaration": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,

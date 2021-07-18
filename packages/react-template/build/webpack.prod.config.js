@@ -1,14 +1,15 @@
 const path = require('path')
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-const MergeWebpack = require('webpack-merge')
-const PreloadWebpackPlugin = require('preload-webpack-plugin')
-const webpack = require('webpack')
+const PreloadWebpackPlugin = require('@vue/preload-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const CompressionPlugin = require('compression-webpack-plugin')
+const SizePlugin = require('size-plugin')
+const WebpackBar = require('webpackbar')
+const { merge } = require('webpack-merge')
 
 const configs = require('./config')
 const common = require('./webpack.common.config')
@@ -19,6 +20,7 @@ const common = require('./webpack.common.config')
 const prod = {
   devtool: 'source-map',
   mode: 'production',
+  stats: 'errors-only',
   output: {
     path: configs.path.output,
     filename: path.posix.join('static', 'js/[name].[chunkhash].js'),
@@ -26,6 +28,7 @@ const prod = {
     publicPath: './',
   },
   optimization: {
+    moduleIds: 'named',
     splitChunks: {
       cacheGroups: {
         vendors: {
@@ -55,11 +58,14 @@ const prod = {
           },
         },
       }),
-      new OptimizeCssAssetsPlugin({
-        cssProcessorOptions: {
-          safe: true,
-          autoprefixer: { disable: true },
-          discardComments: { removeAll: true },
+      new CssMinimizerPlugin({
+        minimizerOptions: {
+          preset: [
+            'advanced',
+            {
+              autoprefixer: false,
+            },
+          ],
         },
       }),
     ],
@@ -70,7 +76,7 @@ const prod = {
         test: /\.css$/,
         exclude: /node_modules/,
         use: [
-          { loader: MiniCSSExtractPlugin.loader, options: { sourceMap: true } },
+          { loader: MiniCSSExtractPlugin.loader },
           { loader: 'css-loader', options: { sourceMap: true } },
           { loader: 'postcss-loader', options: { sourceMap: true } },
         ],
@@ -78,7 +84,7 @@ const prod = {
       {
         test: /(\.styl$|\.stylus$)/,
         use: [
-          { loader: MiniCSSExtractPlugin.loader, options: { sourceMap: true } },
+          { loader: MiniCSSExtractPlugin.loader },
           {
             loader: 'css-loader',
             options: {
@@ -91,8 +97,10 @@ const prod = {
           {
             loader: 'stylus-loader',
             options: {
-              sourceMap: true,
-              use: configs.stylus.plugins,
+              stylusOptions: {
+                sourceMap: true,
+                use: configs.stylus.plugins,
+              },
             },
           },
         ],
@@ -101,10 +109,9 @@ const prod = {
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new webpack.HashedModuleIdsPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'public/index.html',
+      template: 'public/template.html',
       inject: true,
       minify: {
         collapseWhitespace: true,
@@ -120,17 +127,20 @@ const prod = {
       filename: path.posix.join('static', 'css/[name].[contenthash].css'),
       chunkFilename: path.posix.join('static', 'css/[name].[contenthash].async.css'),
     }),
-  ]
-    .concat(
-      configs.analyzer
-        ? [
-            new BundleAnalyzerPlugin({
-              openAnalyzer: true,
-            }),
-          ]
-        : [],
-    )
-    .concat(configs.gzip ? [new CompressionPlugin()] : []),
+
+    ...(configs.analyzer
+      ? [
+          new BundleAnalyzerPlugin({
+            openAnalyzer: true,
+          }),
+        ]
+      : []),
+    new CompressionPlugin(),
+    new SizePlugin(),
+    new WebpackBar({
+      profile: true,
+    }),
+  ],
 }
 
-module.exports = MergeWebpack(common, prod)
+module.exports = merge(common, prod)

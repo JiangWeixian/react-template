@@ -1,3 +1,5 @@
+const { defaults: tsjPreset, jsWithTsESM, jsWithBabelESM } = require('ts-jest/presets')
+
 module.exports = {
   cacheDirectory: './jest/cache',
   collectCoverage: true,
@@ -14,10 +16,15 @@ module.exports = {
   },
   moduleNameMapper: {
     '@/(.*)': '<rootDir>/src/$1',
+    '\\.(css|less|scss|sss|styl)$': '<rootDir>/node_modules/jest-css-modules',
   },
   roots: ['<rootDir>'],
   moduleFileExtensions: ['js', 'json', 'jsx', 'ts', 'tsx', 'node'],
-  testRegex: '/__test__/.+\\.test\\.tsx?$',
+  transform: {
+    ...jsWithBabelESM.transform,
+    ...tsjPreset.transform,
+    ...jsWithTsESM.transform,
+  },
+  testRegex: '/test/.+\\.test\\.tsx?$',
   verbose: false,
-  setupFiles: ['<rootDir>/test/setupTests.ts'],
 }

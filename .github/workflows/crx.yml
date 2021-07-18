@@ -1,0 +1,24 @@
+on:
+  push:
+    paths:
+      - 'packages/chrome-extenstion-template/**'
+    branches: [master]
+  pull_request:
+    paths:
+      - 'packages/ts-lib-template/**'
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: 'ubuntu-18.04'
+    name: Chrome extensions
+    steps:
+      - uses: actions/checkout@v2
+      - name: Checkout
+        run: |
+          yarn
+        working-directory: ./packages/chrome-extenstion-template
+      - name: Build
+        run: |
+          yarn build
+        working-directory: ./packages/chrome-extenstion-template

@@ -1,0 +1,33 @@
+name: Node.js CI
+
+on:
+  push:
+    paths:
+      - 'packages/rollup-template/**'
+    branches: [master]
+  pull_request:
+    paths:
+      - 'packages/rollup-template/**'
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Rollup template
+
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x, 16.x]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Test
+        working-directory: ./packages/rollup-template
+        run: |
+          yarn
+          yarn test

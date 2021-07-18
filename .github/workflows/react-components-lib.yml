@@ -1,0 +1,24 @@
+on:
+  push:
+    paths:
+      - 'packages/react-components-lib-template/**'
+    branches: [master]
+  pull_request:
+    paths:
+      - 'packages/ts-lib-template/**'
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: 'ubuntu-18.04'
+    name: React Components lib Template
+    steps:
+      - uses: actions/checkout@v2
+      - name: Checkout
+        run: |
+          yarn
+        working-directory: ./packages/react-components-lib-template
+      - name: Test
+        run: |
+          yarn test
+        working-directory: ./packages/react-components-lib-template

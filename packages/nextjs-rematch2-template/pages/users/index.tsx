@@ -3,8 +3,8 @@ import Link from 'next/link'
 
 import Layout from '~/components/Layout'
 import List from '~/components/List'
-import styles from './User.module.styl'
-import { api, Users } from '~/api'
+import styles from './User.module.css'
+import { api, Users } from '~/request'
 
 type Props = {
   items: Users.Item[]

@@ -1,4 +1,3 @@
-const path = require('path')
 const through2 = require('through2')
 const ts = require('gulp-typescript')
 const babel = require('gulp-babel')
@@ -21,7 +20,7 @@ function compileStylus(modules) {
   return gulp
     .src(['components/**/*.styl'])
     .pipe(stylus())
-    .pipe(postcss([config.postcssPlugins.autoprefixer, config.postcssPlugins.cssmodules]))
+    .pipe(postcss(config.postcssPlugins))
     .pipe(gulp.dest(config.dirs.components))
     .pipe(gulp.dest(modules === false ? config.dirs.es : config.dirs.lib))
 }

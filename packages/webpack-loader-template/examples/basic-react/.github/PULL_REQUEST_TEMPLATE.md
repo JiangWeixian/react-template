@@ -1,5 +1,0 @@
-### What
-
-### Warning
-
-- [ ] - Any warnings?

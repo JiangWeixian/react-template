@@ -2,17 +2,14 @@ import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 import typescript from 'rollup-plugin-typescript2'
 import alias from 'rollup-plugin-alias'
+import excludeDependenciesFromBundle from 'rollup-plugin-exclude-dependencies-from-bundle'
+import bundleSize from 'rollup-plugin-bundle-size'
 import pkg from './package.json'
 
 export default [
   // browser-friendly UMD build
   {
     input: 'src/index.ts',
-    output: {
-      name: 'howLongUntilLunch',
-      file: pkg.browser,
-      format: 'umd',
-    },
     plugins: [
       resolve(), // so Rollup can find `ms`
       commonjs(), // so Rollup can convert `ms` to an ES module
@@ -23,7 +20,18 @@ export default [
         resolve: ['.ts', '.js', '.tsx', '.jsx'],
         entries: [{ find: '@/', replacement: './src/' }],
       }),
+      // exclude dependencies and peerDependencies
+      excludeDependenciesFromBundle({
+        peerDependencies: true,
+      }),
+      // console.log bundle file size
+      bundleSize(),
     ],
+    output: {
+      name: 'rollup-template',
+      file: pkg.browser,
+      format: 'umd',
+    },
   },
 
   // CommonJS (for Node) and ES module (for bundlers) build.
@@ -41,7 +49,11 @@ export default [
         resolve: ['.ts', '.js', '.tsx', '.jsx'],
         entries: [{ find: '@/', replacement: './src/' }],
       }),
+      bundleSize(),
     ],
-    output: [{ file: pkg.main, format: 'cjs' }, { file: pkg.module, format: 'es' }],
+    output: [
+      { file: pkg.main, format: 'cjs' },
+      { file: pkg.module, format: 'es' },
+    ],
   },
 ]

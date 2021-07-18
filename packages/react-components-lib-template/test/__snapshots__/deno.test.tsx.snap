@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`hello example jest with ts 1`] = `
+<div
+  className="demo"
+>
+  this is ReactComponentsLib Demo
+</div>
+`;

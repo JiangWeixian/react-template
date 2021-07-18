@@ -1,19 +1,18 @@
 # @aiou/dayjs-plugin-template
-> template of dayjs-plugin
+*build dayjs plugin lib*
+
+[![npm](https://img.shields.io/npm/v/@aiou/dayjs-plugin-template)](https://github.com/JiangWeixian/templates/tree/master/packages/dayjs-plugin-template) [![GitHub](https://img.shields.io/npm/l/@aiou/dayjs-plugin-template)](https://github.com/JiangWeixian/templates/tree/master/packages/dayjs-plugin-template)
 
 ## features
 
 - ✨ build and write with `typescript`
 - ✨ good typo define
-- ✨ eslint and pretty code
-- 📦 package it in simple way
 
 ## install
 > demo usage of this repo
 
 ```sh
-npm install @aiou/dayjs-plugin-template dayjs --save
-npm install dayjs --save
+yarn add @aiou/dayjs-plugin-template dayjs
 ```
 
 ## usage

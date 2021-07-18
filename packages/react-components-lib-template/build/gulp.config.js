@@ -11,7 +11,7 @@ const configs = {
   },
   tsConfig: tsConfig(),
   getBabelConfig: babelConfig,
-  postcssPlugins: postcssPlugins,
+  postcssPlugins,
 }
 
 module.exports = configs

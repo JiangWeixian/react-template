@@ -1,67 +1,80 @@
 {
   "name": "@aiou/chrome-extenstion-template",
-  "version": "1.1.7",
+  "version": "1.2.1",
   "description": "chrome-extenstion-template",
   "main": "index.js",
   "scripts": {
-    "start": "npm ci",
-    "dev": "npm run clean && webpack --config webpack/webpack.dev.js --watch",
-    "build": "npm run clean && webpack --config webpack/webpack.prod.js",
-    "package": "npm run build && zip -r chrome-extenstion-template dist",
-    "package:force": "rimraf chrome-extenstion-template.zip && npm run build && zip -r chrome-extenstion-template.zip dist",
+    "start": "yarn ci",
+    "dev": "yarn run clean && webpack --config webpack/webpack.dev.js --watch",
+    "build": "yarn run clean && webpack --config webpack/webpack.prod.js",
+    "package": "yarn run build && zip -r chrome-extenstion-template dist",
+    "package:force": "rimraf chrome-extenstion-template.zip && yarn run build && zip -r chrome-extenstion-template.zip dist",
     "clean": "rimraf dist",
     "prettier": "prettier --config .prettierrc --write '**/*'",
-    "update": "npm update && npm update --save-dev",
-    "check": "npm outdated && npm outdated --save-dev",
+    "update": "yarn update && yarn update --save-dev",
+    "check": "yarn outdated && yarn outdated --save-dev",
     "release": "np --no-cleanup --yolo --no-publish --any-branch"
   },
-  "author": "JW",
+  "author": "JW <jiangweixian1994@gmail.com> (https://twitter.com/jiangweixian)",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/JiangWeixian/templates/tree/master/packages/chrome-extenstion-template"
+    "url": "https://github.com/JiangWeixian/templates",
+    "directory": "packages/chrome-extenstion-template"
   },
   "dependencies": {
     "axios": "0.21.1",
-    "jquery": "3.5.0",
-    "react": "16.8.6",
-    "react-dom": "16.8.6",
-    "rxjs": "6.5.2",
-    "rxjs-hooks": "0.6.2"
+    "jquery": "3.6.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "rxjs": "7.1.0",
+    "rxjs-hooks": "0.7.0"
   },
   "devDependencies": {
-    "@babel/core": "7.10.2",
-    "@babel/plugin-transform-typescript": "7.10.1",
-    "@babel/preset-env": "7.10.2",
-    "@babel/preset-react": "7.10.1",
-    "@types/chrome": "0.0.86",
-    "@types/jquery": "3.3.30",
-    "@types/node": "12.6.8",
-    "@types/react": "16.8.23",
-    "@types/react-dom": "16.8.5",
-    "babel-plugin-import": "1.13.0",
-    "cache-loader": "4.1.0",
-    "copy-webpack-plugin": "5.0.3",
+    "@babel/core": "7.14.6",
+    "@babel/plugin-transform-typescript": "7.14.6",
+    "@babel/preset-env": "7.14.7",
+    "@babel/preset-react": "7.14.5",
+    "@types/chrome": "^0.0.145",
+    "@types/jquery": "3.5.5",
+    "@types/node": "16.0.0",
+    "@types/react": "17.0.13",
+    "@types/react-dom": "17.0.8",
+    "babel-loader": "^8.2.2",
+    "babel-plugin-import": "1.13.3",
+    "cache-loader": "^4.1.0",
+    "copy-webpack-plugin": "^9.0.1",
     "crx-hotreload": "1.0.6",
-    "fork-ts-checker-webpack-plugin": "4.1.6",
+    "cz-emoji": "^1.3.1",
+    "fork-ts-checker-webpack-plugin": "^6.2.12",
     "husky": "3.0.1",
-    "np": "5.0.3",
-    "prettier": "2.2.1",
+    "np": "7.5.0",
+    "prettier": "2.3.2",
     "prettier-quick": "0.0.5",
-    "pretty-quick": "3.1.0",
-    "rimraf": "2.6.3",
-    "terser-webpack-plugin": "^3.0.3",
-    "thread-loader": "2.1.3",
-    "ts-loader": "5.4.5",
-    "typescript": "3.9.3",
-    "webpack": "~4.17.2",
-    "webpack-cli": "~3.1.0",
-    "webpack-merge": "~4.2.1"
+    "pretty-quick": "3.1.1",
+    "rimraf": "3.0.2",
+    "terser-webpack-plugin": "^5.1.4",
+    "thread-loader": "^3.0.4",
+    "ts-loader": "^9.2.3",
+    "typescript": "^4.3.5",
+    "webpack": "^5.42.0",
+    "webpack-cli": "^4.7.2",
+    "webpack-merge": "^5.8.0"
   },
   "husky": {
     "hooks": {
       "pre-commit": "pretty-quick --staged"
     }
   },
-  "gitHead": "8d1f23440ab011812cba747468cd2e4c5c36a9e4"
+  "config": {
+    "commitizen": {
+      "path": "cz-emoji"
+    }
+  },
+  "gitHead": "8d1f23440ab011812cba747468cd2e4c5c36a9e4",
+  "homepage": "https://github.com/JiangWeixian/templates#readme",
+  "bugs": {
+    "url": "https://github.com/JiangWeixian/templates/issues",
+    "email": "jiangweixian1994@gmail.com"
+  }
 }

@@ -4,7 +4,7 @@ import { NextPageContext } from 'next'
 import { User } from '~/interfaces'
 import Layout from '~/components/Layout'
 import ListDetail from '~/components/ListDetail'
-import { api } from '~/api'
+import { api } from '~/request'
 
 type Props = {
   item?: User

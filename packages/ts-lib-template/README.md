@@ -1,28 +1,15 @@
 # @aiou/ts-lib-template
-> typescript lib starter
+**build ts lib template**
 
-[![npm](https://img.shields.io/npm/v/@aiou/ts-lib-template?style=for-the-badge)](https://github.com/JiangWeixian/templates/tree/master/packages/core) [![GitHub](https://img.shields.io/github/license/jiangweixian/templates?style=for-the-badge)](https://github.com/JiangWeixian/templates/tree/master/packages/ts-lib-template)
-
-## notes
-
-- replace all `ts-lib-template` by real `package-name`
+[![npm](https://img.shields.io/npm/v/@aiou/ts-lib-template)](https://github.com/JiangWeixian/templates/tree/master/packages/ts-lib-template) [![GitHub](https://img.shields.io/npm/l/@aiou/ts-lib-template)](https://github.com/JiangWeixian/templates/tree/master/packages/ts-lib-template)
 
 ## features
 
-- support simple `react` examples
-- support watch mode in dev
+- Simple build with `tsc`
+- Replace `alias` path to `real` path
+- Watch mode
 
-## get started
+## development
 
-**develop**
-
-```
-npm install
-npm run dev
-```
-
-**build**
-
-```
-npm run build
-```
+- **Setup** - `yarn * yarn dev`
+- **Build** - `yarn build`

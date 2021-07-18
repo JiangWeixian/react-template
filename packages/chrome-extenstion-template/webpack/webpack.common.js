@@ -68,10 +68,12 @@ module.exports = {
   plugins: [
     // exclude locale files in moment
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-    new CopyPlugin([{ from: '.', to: '../' }], { context: 'public' }),
+    new CopyPlugin({ patterns: [{ from: '.', to: '../', context: 'public' }] }),
     new ForkTsCheckerWebpackPlugin({
-      tsconfig: path.join(__dirname, '../tsconfig.json'),
-      checkSyntacticErrors: true,
+      typescript: {
+        configFile: path.join(__dirname, '../tsconfig.json'),
+      },
+      async: true,
     }),
   ],
 }

@@ -1,0 +1,24 @@
+on:
+  push:
+    paths:
+      - 'packages/original-html-template/**'
+    branches: [master]
+  pull_request:
+    paths:
+      - 'packages/ts-lib-template/**'
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: 'ubuntu-18.04'
+    name: Original HTML Template
+    steps:
+      - uses: actions/checkout@v2
+      - name: Checkout
+        run: |
+          yarn
+        working-directory: ./packages/original-html-template
+      - name: Test
+        run: |
+          yarn build
+        working-directory: ./packages/original-html-template

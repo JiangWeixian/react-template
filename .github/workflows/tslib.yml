@@ -1,0 +1,33 @@
+name: Node.js CI
+
+on:
+  push:
+    paths:
+      - 'packages/ts-lib-template/**'
+    branches: [master]
+  pull_request:
+    paths:
+      - 'packages/ts-lib-template/**'
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: TS lib
+
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x, 16.x]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Test
+        working-directory: ./packages/ts-lib-template
+        run: |
+          yarn
+          yarn test

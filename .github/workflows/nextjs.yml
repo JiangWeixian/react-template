@@ -1,0 +1,28 @@
+on:
+  push:
+    paths:
+      - 'packages/nextjs-rematch2-template/**'
+    branches: [master]
+  pull_request:
+    paths:
+      - 'packages/ts-lib-template/**'
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: 'ubuntu-18.04'
+    name: Nextjs Template
+    steps:
+      - uses: actions/checkout@v2
+      - name: Checkout
+        run: |
+          yarn
+        working-directory: ./packages/nextjs-rematch2-template
+      - name: Test
+        run: |
+          yarn test
+        working-directory: ./packages/nextjs-rematch2-template
+      - name: Build
+        run: |
+          yarn build
+        working-directory: ./packages/nextjs-rematch2-template

@@ -5,8 +5,6 @@ import chalk from 'chalk'
 /**
  * Prefix.
  */
-
-const prefix = '   neo'
 const sep = chalk.gray('·')
 
 /**
@@ -17,7 +15,7 @@ const sep = chalk.gray('·')
 
 const log = (...args: [any, ...any[]]) => {
   const msg = format.apply(format, args)
-  console.log(chalk.white(prefix), sep, msg)
+  console.log(chalk.bgBlue.black(' info '), sep, msg)
 }
 
 /**
@@ -29,7 +27,7 @@ const log = (...args: [any, ...any[]]) => {
 const fatal = (...args: [any, ...any[]]) => {
   if (args[0] instanceof Error) args[0] = args[0].message.trim()
   const msg = format.apply(format, args)
-  console.error(chalk.red(prefix), sep, msg)
+  console.error(chalk.bgRed.black(' failed '), sep, msg)
   process.exit(1)
 }
 
@@ -41,7 +39,7 @@ const fatal = (...args: [any, ...any[]]) => {
 
 const success = (...args: [any, ...any[]]) => {
   const msg = format.apply(format, args)
-  console.log(chalk.white(prefix), sep, msg)
+  console.log(chalk.bgGreen.black(' success '), sep, msg)
 }
 
 export default {

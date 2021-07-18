@@ -89,6 +89,11 @@ out
 .nuxt
 dist
 
+# Templates Common build
+lib
+es
+.lib
+
 # Gatsby files
 .cache/
 # Comment in the public line in if your project uses Gatsby and not Next.js

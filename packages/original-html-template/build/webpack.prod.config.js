@@ -1,31 +1,37 @@
 const path = require('path')
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-const MergeWebpack = require('webpack-merge')
-const PreloadWebpackPlugin = require('preload-webpack-plugin')
-const webpack = require('webpack')
+const { merge } = require('webpack-merge')
+const PreloadWebpackPlugin = require('@vue/preload-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const SizePlugin = require('size-plugin')
+const WebpackBar = require('webpackbar')
 
-const configs = require('./config').prod
+const configs = require('./config')
 const baseWebpackConfig = require('./webpack.common.config')
 
+/**
+ * @type import('webpack').Configuration
+ */
 const prodWebpackConfig = {
   devtool: 'source-map',
-  mode: configs.mode,
+  mode: 'production',
+  stats: 'errors-only',
   output: {
-    path: configs.distPath,
-    filename: path.posix.join(configs.staticFolder, 'js/[name].[chunkhash].js'),
-    chunkFilename: path.posix.join(configs.staticFolder, 'js/[name].[chunkhash].async.js'),
-    publicPath: configs.publicPath,
+    path: configs.path.output,
+    filename: path.posix.join('static', 'js/[name].[chunkhash].js'),
+    chunkFilename: path.posix.join('static', 'js/[name].[chunkhash].async.js'),
+    publicPath: './',
   },
   optimization: {
+    moduleIds: 'named',
     splitChunks: {
       cacheGroups: {
         vendors: {
-          test: function(module) {
+          test: function (module) {
             return module.resource && /react/.test(module.resource)
           },
           name: 'vendors',
@@ -41,21 +47,24 @@ const prodWebpackConfig = {
       },
     },
     minimizer: [
-      new UglifyJsPlugin({
+      new TerserPlugin({
         parallel: true,
         extractComments: false,
-        uglifyOptions: {
+        terserOptions: {
           warnings: false,
           compress: {
             drop_console: true,
           },
         },
       }),
-      new OptimizeCssAssetsPlugin({
-        cssProcessorOptions: {
-          safe: true,
-          autoprefixer: { disable: true },
-          discardComments: { removeAll: true },
+      new CssMinimizerPlugin({
+        minimizerOptions: {
+          preset: [
+            'advanced',
+            {
+              autoprefixer: false,
+            },
+          ],
         },
       }),
     ],
@@ -66,7 +75,7 @@ const prodWebpackConfig = {
         test: /\.css$/,
         exclude: /node_modules/,
         use: [
-          { loader: MiniCSSExtractPlugin.loader, options: { sourceMap: true } },
+          { loader: MiniCSSExtractPlugin.loader },
           { loader: 'css-loader', options: { sourceMap: true } },
           { loader: 'postcss-loader', options: { sourceMap: true } },
         ],
@@ -74,7 +83,7 @@ const prodWebpackConfig = {
       {
         test: /(\.styl$|\.stylus$)/,
         use: [
-          { loader: MiniCSSExtractPlugin.loader, options: { sourceMap: true } },
+          { loader: MiniCSSExtractPlugin.loader },
           {
             loader: 'css-loader',
             options: {
@@ -86,8 +95,10 @@ const prodWebpackConfig = {
           {
             loader: 'stylus-loader',
             options: {
-              sourceMap: true,
-              use: configs.stylusPlugins,
+              stylusOptions: {
+                sourceMap: true,
+                use: configs.stylus.plugins,
+              },
             },
           },
         ],
@@ -96,7 +107,6 @@ const prodWebpackConfig = {
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new webpack.HashedModuleIdsPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'index.html',
@@ -112,13 +122,21 @@ const prodWebpackConfig = {
       include: ['vendors', 'main'],
     }),
     new MiniCSSExtractPlugin({
-      filename: path.posix.join(configs.staticFolder, 'css/[name].[contenthash].css'),
-      chunkFilename: path.posix.join(configs.staticFolder, 'css/[name].[contenthash].async.css'),
+      filename: path.posix.join('static', 'css/[name].[contenthash].css'),
+      chunkFilename: path.posix.join('static', 'css/[name].[contenthash].async.css'),
     }),
-    new BundleAnalyzerPlugin({
-      openAnalyzer: true,
+    ...(configs.analyzer
+      ? [
+          new BundleAnalyzerPlugin({
+            openAnalyzer: true,
+          }),
+        ]
+      : []),
+    new SizePlugin(),
+    new WebpackBar({
+      profile: true,
     }),
   ],
 }
 
-module.exports = MergeWebpack(baseWebpackConfig, prodWebpackConfig)
+module.exports = merge(baseWebpackConfig, prodWebpackConfig)

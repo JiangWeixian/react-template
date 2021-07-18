@@ -1,8 +1,9 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
-const MergeWebpack = require('webpack-merge')
 const ThreadLoader = require('thread-loader')
+const WebpackBar = require('webpackbar')
 const webpack = require('webpack')
+const { merge } = require('webpack-merge')
 
 const configs = require('./config')
 const common = require('./webpack.common.config')
@@ -14,7 +15,7 @@ ThreadLoader.warmup(configs.workerpool, ['ts-loader', 'babel-loader'])
  * @type import('webpack').Configuration
  */
 const dev = {
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'eval-cheap-module-source-map',
   mode: 'development',
   output: {
     path: configs.path.output,
@@ -26,11 +27,11 @@ const dev = {
     watchContentBase: true,
     contentBase: configs.path.public,
     hot: true,
+    stats: 'errors-only',
     inline: true,
-    overlay: true,
     compress: true,
-    clientLogLevel: 'none',
-    quiet: true,
+    clientLogLevel: 'silent',
+    noInfo: true,
     public: `http://localhost:${port}`,
     proxy: {
       '/proxy': {
@@ -39,12 +40,15 @@ const dev = {
       },
     },
   },
+  optimization: {
+    moduleIds: 'named',
+  },
   module: {
     rules: [
       {
         test: /\.css$/,
         use: [
-          { loader: 'style-loader', options: { sourceMap: true } },
+          { loader: 'style-loader' },
           {
             loader: 'typings-for-css-modules-loader',
             options: {
@@ -60,7 +64,7 @@ const dev = {
       {
         test: /(\.styl$|\.stylus$)/,
         use: [
-          { loader: 'style-loader', options: { sourceMap: true } },
+          { loader: 'style-loader' },
           {
             loader: 'typings-for-css-modules-loader',
             options: {
@@ -75,8 +79,10 @@ const dev = {
           {
             loader: 'stylus-loader',
             options: {
-              sourceMap: true,
-              use: configs.stylus.plugins,
+              stylusOptions: {
+                sourceMap: true,
+                use: configs.stylus.plugins,
+              },
             },
           },
         ],
@@ -86,11 +92,11 @@ const dev = {
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'public/index.html',
+      template: 'public/template.html',
       inject: true,
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin(),
+    new WebpackBar(),
     new FriendlyErrorsPlugin({
       compilationSuccessInfo: {
         messages: [`Running here http://localhost:${port}`],
@@ -104,4 +110,4 @@ const dev = {
   ],
 }
 
-module.exports = MergeWebpack(common, dev)
+module.exports = merge(common, dev)

@@ -1,39 +1,37 @@
-<div align="center">
-
 # @aiou/chrome-extenstion-template
+*build chrome crx application*
 
-[![npm](https://img.shields.io/npm/v/@aiou/chrome-extenstion-template?style=for-the-badge)](https://github.com/JiangWeixian/templates/tree/master/packages/chrome-extenstion-template) [![GitHub](https://img.shields.io/github/license/jiangweixian/templates?style=for-the-badge)](https://github.com/JiangWeixian/templates/tree/master/packages/chrome-extenstion-template)
+[![npm](https://img.shields.io/npm/v/@aiou/chrome-extenstion-template)](https://github.com/JiangWeixian/templates/tree/master/packages/chrome-extenstion-template) [![GitHub](https://img.shields.io/npm/l/@aiou/chrome-extenstion-template)](https://github.com/JiangWeixian/templates/tree/master/packages/chrome-extenstion-template)
 
-</div>
+## features
 
-- [@aiou/chrome-extenstion-template](#aiouchrome-extenstion-template)
-  - [custom](#custom)
-    - [basic](#basic)
-    - [different ctx type](#different-ctx-type)
-  - [features](#features)
-  - [stacks](#stacks)
-  - [folder structure](#folder-structure)
-  - [development](#development)
-    - [setup & install](#setup--install)
-    - [build](#build)
-  - [Q&A](#qa)
+* Support hot reload
+* Build with `webpack`, and to `.zip`
+* Build UI interface with `react`
+* Process page element with `JQuery`
+* Process multiple dom event with `rxjs`
 
-## custom
-
-### basic
+## usage
 
 - custom package info in `package.json & publick/manifest.json`
 
-### different ctx type
+## development
 
-1. content mode - in default, this template work on any live webpage
+- **Setup** - `yarn && yarn dev`
+- **Build** - `yarn build`
 
-2. newtab mode 
+## different crx type
 
-    create `src/tab.tsx`
+### content mode
 
+active when click crx icon, in default, this template work on any live webpage
 
-    create `public/tab.html`
+### newtab mode 
+
+active when open new tab
+
+1. create `src/tab.tsx`
+2. create `public/tab.html`
 
     ```html
     <!DOCTYPE html>
@@ -70,46 +68,7 @@
     }
     ```
 
-## features
 
-* support hot reload
-
-## stacks
-
-* TypeScript
-* React
-* axios
-* Webpack
-* jQuery
-* Example Code
-    * Chrome Storage
-    * Options Version 2
-    * content script
-    * count up badge number
-    * background
-
-## folder structure
-
-* src/assets: static files
-* dist: Chrome Extension directory
-* dist/js: Generated JavaScript files
-
-## development
-
-### setup & install
-
-```
-npm install
-npm run dev
-```
-
-> see how load extension to chrome in Guide part
-
-### build
-
-```
-npm run build
-```
 
 ## Q&A
 

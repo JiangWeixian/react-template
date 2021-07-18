@@ -5,8 +5,8 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "esModuleInterop": true,
-    "declaration": true,
-    "sourceMap": true,
+    "declaration": false,
+    "sourceMap": false,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
@@ -15,7 +15,20 @@
     "noImplicitReturns": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
-    "outDir": "lib"
+    "outDir": "lib",
+    "skipLibCheck": true,
+    "baseUrl": "./",
+    "paths": {
+      "@shared/*": ["shared/*"]
+    },
+    "plugins": [
+      // Transform paths in output .js files
+      { "transform": "typescript-transform-paths" },
+      // Transform paths in output .d.ts files (Include this line if you output declarations files)
+      { "transform": "typescript-transform-paths", "afterDeclarations": true }
+    ]
   },
-  "exclude": ["node_modules", "lib", "examples", "test", "templates"]
+  "include": [
+    "src"
+  ]
 }

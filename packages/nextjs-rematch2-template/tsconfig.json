@@ -9,7 +9,7 @@
       "dom",
       "es2017"
     ],
-    "module": "esnext",
+    "module": "ES2015",
     "moduleResolution": "node",
     "noEmit": true,
     "noFallthroughCasesInSwitch": true,
@@ -18,7 +18,7 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "esnext",
+    "target": "ES2015",
     "baseUrl": ".",
     "paths": {
       "~/*": [
@@ -36,6 +36,8 @@
   "include": [
     "**/*.ts",
     "**/*.tsx",
-    "next.config.js"
+    "next.config.js",
+    "test/demo.test.jsx",
+    "test/demo.test.jsx"
   ]
 }
